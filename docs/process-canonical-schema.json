@@ -38,7 +38,13 @@
           "type": "string"
         },
         "status": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "draft",
+            "active",
+            "deprecated",
+            "archived"
+          ]
         },
         "owner": {
           "type": "string"
@@ -88,7 +94,20 @@
             "type": "string"
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "startEvent",
+              "endEvent",
+              "userTask",
+              "serviceTask",
+              "scriptTask",
+              "businessRuleTask",
+              "subProcess",
+              "exclusiveGateway",
+              "parallelGateway",
+              "inclusiveGateway",
+              "eventBasedGateway"
+            ]
           },
           "phase": {
             "type": "string"
@@ -133,7 +152,12 @@
             "type": "string"
           },
           "automationPotential": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
           },
           "sourceReferences": {
             "type": "array",
@@ -244,7 +268,12 @@
             "type": "string"
           },
           "direction": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound",
+              "bidirectional"
+            ]
           },
           "trigger": {
             "type": "string"

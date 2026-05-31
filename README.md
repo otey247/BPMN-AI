@@ -46,4 +46,4 @@ The reference process is the **Construction Measures CAPEX / NR OPEX lifecycle**
 4. Execution
 5. Commissioning and Closeout
 
-See `/tmp/workspace/otey247/BPMN-AI/docs/construction-measures-process.bpmn` for a baseline BPMN model and `/tmp/workspace/otey247/BPMN-AI/docs/process-canonical-schema.json` for the canonical process data structure.
+See `docs/construction-measures-process.bpmn` for a baseline BPMN model and `docs/process-canonical-schema.json` for the canonical process data structure.
