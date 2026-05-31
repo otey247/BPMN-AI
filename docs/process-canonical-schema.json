@@ -1,0 +1,267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bpmn-ai.local/schemas/process-canonical-schema.json",
+  "title": "BPMN-AI Canonical Process Schema",
+  "type": "object",
+  "required": [
+    "process",
+    "nodes",
+    "gateways",
+    "controls",
+    "integrations"
+  ],
+  "properties": {
+    "process": {
+      "type": "object",
+      "required": [
+        "processId",
+        "name",
+        "version",
+        "status",
+        "owner",
+        "bpmnXml"
+      ],
+      "properties": {
+        "processId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "businessArea": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sourceDocuments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bpmnXml": {
+          "type": "string"
+        },
+        "canonicalProcessJson": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "nodeId",
+          "bpmnId",
+          "name",
+          "type",
+          "phase",
+          "lane"
+        ],
+        "properties": {
+          "nodeId": {
+            "type": "string"
+          },
+          "bpmnId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "lane": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "systems": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "controls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "risks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sla": {
+            "type": "string"
+          },
+          "automationPotential": {
+            "type": "string"
+          },
+          "sourceReferences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "gateways": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "gatewayId",
+          "type",
+          "decisionLogic"
+        ],
+        "properties": {
+          "gatewayId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "XOR",
+              "AND",
+              "OR",
+              "EVENT_BASED"
+            ]
+          },
+          "decisionLogic": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "defaultPath": {
+            "type": "string"
+          },
+          "riskScore": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "controlId",
+          "name",
+          "purpose",
+          "owner",
+          "relatedNode"
+        ],
+        "properties": {
+          "controlId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "string"
+          },
+          "relatedNode": {
+            "type": "string"
+          },
+          "complianceMapping": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "integrations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "direction",
+          "trigger",
+          "dataObject"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "api": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "dataObject": {
+            "type": "string"
+          },
+          "authentication": {
+            "type": "string"
+          },
+          "failureHandling": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

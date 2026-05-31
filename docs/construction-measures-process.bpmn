@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  id="Definitions_ConstructionMeasureLifecycle"
+  targetNamespace="https://bpmn-ai.local/processes/construction-measures">
+  <bpmn:process id="Process_ConstructionMeasureLifecycle" name="Construction Measure Lifecycle" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_ConstructionRequested" name="Construction Measure Requested">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Task_SubmitDemandRequest" name="Submit Demand Request">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:businessRuleTask id="Task_ClassifyCapexNrOpex" name="Classify as CAPEX or NR OPEX">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:userTask id="Task_EconomicViabilityReview" name="Perform Economic Viability Review">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_EconomicallyViable" name="Economically Viable?">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_Rejected" name="Rejected">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Task_SteeringCommitteeReview" name="Steering Committee Review">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_CommitteeApproved" name="Approved?">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_ReleaseProjectAndAllocateBudget" name="Release Project and Allocate Budget in ERP">
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:parallelGateway id="Gateway_StartParallelReview" name="Start Concurrent Review">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+      <bpmn:outgoing>Flow_12</bpmn:outgoing>
+      <bpmn:outgoing>Flow_13</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:userTask id="Task_TechnicalReview" name="Technical Review">
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+      <bpmn:outgoing>Flow_14</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_LegalReview" name="Legal and Compliance Review">
+      <bpmn:incoming>Flow_12</bpmn:incoming>
+      <bpmn:outgoing>Flow_15</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_ProcurementReview" name="Procurement and Commercial Review">
+      <bpmn:incoming>Flow_13</bpmn:incoming>
+      <bpmn:outgoing>Flow_16</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:parallelGateway id="Gateway_JoinParallelReview" name="Join Reviews">
+      <bpmn:incoming>Flow_14</bpmn:incoming>
+      <bpmn:incoming>Flow_15</bpmn:incoming>
+      <bpmn:incoming>Flow_16</bpmn:incoming>
+      <bpmn:outgoing>Flow_17</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:subProcess id="SubProcess_ConstructionExecution" name="Construction Execution and Change Order Management">
+      <bpmn:incoming>Flow_17</bpmn:incoming>
+      <bpmn:outgoing>Flow_18</bpmn:outgoing>
+    </bpmn:subProcess>
+    <bpmn:userTask id="Task_TechnicalAcceptance" name="Perform Technical Acceptance">
+      <bpmn:incoming>Flow_18</bpmn:incoming>
+      <bpmn:outgoing>Flow_19</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_DefectsIdentified" name="Defects Identified?">
+      <bpmn:incoming>Flow_19</bpmn:incoming>
+      <bpmn:outgoing>Flow_20</bpmn:outgoing>
+      <bpmn:outgoing>Flow_21</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:subProcess id="SubProcess_DefectRemediation" name="Defect Remediation">
+      <bpmn:incoming>Flow_20</bpmn:incoming>
+      <bpmn:outgoing>Flow_22</bpmn:outgoing>
+    </bpmn:subProcess>
+    <bpmn:userTask id="Task_FinalCloseout" name="Verify Final Invoice and Close Project Ledger">
+      <bpmn:incoming>Flow_21</bpmn:incoming>
+      <bpmn:incoming>Flow_22</bpmn:incoming>
+      <bpmn:outgoing>Flow_23</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_ConstructionClosed" name="Construction Measure Closed">
+      <bpmn:incoming>Flow_23</bpmn:incoming>
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_ConstructionRequested" targetRef="Task_SubmitDemandRequest" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_SubmitDemandRequest" targetRef="Task_ClassifyCapexNrOpex" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_ClassifyCapexNrOpex" targetRef="Task_EconomicViabilityReview" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_EconomicViabilityReview" targetRef="Gateway_EconomicallyViable" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Gateway_EconomicallyViable" targetRef="Task_SteeringCommitteeReview" name="Yes" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Gateway_EconomicallyViable" targetRef="EndEvent_Rejected" name="No" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_SteeringCommitteeReview" targetRef="Gateway_CommitteeApproved" />
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Gateway_CommitteeApproved" targetRef="Task_ReleaseProjectAndAllocateBudget" name="Yes" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Gateway_CommitteeApproved" targetRef="EndEvent_ConstructionClosed" name="No" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="Task_ReleaseProjectAndAllocateBudget" targetRef="Gateway_StartParallelReview" />
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="Gateway_StartParallelReview" targetRef="Task_TechnicalReview" />
+    <bpmn:sequenceFlow id="Flow_12" sourceRef="Gateway_StartParallelReview" targetRef="Task_LegalReview" />
+    <bpmn:sequenceFlow id="Flow_13" sourceRef="Gateway_StartParallelReview" targetRef="Task_ProcurementReview" />
+    <bpmn:sequenceFlow id="Flow_14" sourceRef="Task_TechnicalReview" targetRef="Gateway_JoinParallelReview" />
+    <bpmn:sequenceFlow id="Flow_15" sourceRef="Task_LegalReview" targetRef="Gateway_JoinParallelReview" />
+    <bpmn:sequenceFlow id="Flow_16" sourceRef="Task_ProcurementReview" targetRef="Gateway_JoinParallelReview" />
+    <bpmn:sequenceFlow id="Flow_17" sourceRef="Gateway_JoinParallelReview" targetRef="SubProcess_ConstructionExecution" />
+    <bpmn:sequenceFlow id="Flow_18" sourceRef="SubProcess_ConstructionExecution" targetRef="Task_TechnicalAcceptance" />
+    <bpmn:sequenceFlow id="Flow_19" sourceRef="Task_TechnicalAcceptance" targetRef="Gateway_DefectsIdentified" />
+    <bpmn:sequenceFlow id="Flow_20" sourceRef="Gateway_DefectsIdentified" targetRef="SubProcess_DefectRemediation" name="Yes" />
+    <bpmn:sequenceFlow id="Flow_21" sourceRef="Gateway_DefectsIdentified" targetRef="Task_FinalCloseout" name="No" />
+    <bpmn:sequenceFlow id="Flow_22" sourceRef="SubProcess_DefectRemediation" targetRef="Task_FinalCloseout" />
+    <bpmn:sequenceFlow id="Flow_23" sourceRef="Task_FinalCloseout" targetRef="EndEvent_ConstructionClosed" />
+  </bpmn:process>
+</bpmn:definitions>
