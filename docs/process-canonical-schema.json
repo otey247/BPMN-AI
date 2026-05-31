@@ -152,7 +152,7 @@
             "type": "string"
           },
           "automationPotential": {
-            "description": "Ordered categorical scale where low < medium < high.",
+            "description": "Ordinal categorical scale where low < medium < high and downstream systems may map these to increasing numeric scores.",
             "type": "string",
             "enum": [
               "low",

@@ -13,7 +13,7 @@
       <bpmn:incoming>Flow_1</bpmn:incoming>
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:businessRuleTask id="Task_ClassifyCapexNrOpex" name="Classify as CAPEX or NR OPEX">
+    <bpmn:businessRuleTask id="Task_ClassifyCapexNrOpex" name="Classify as CAPEX or Non-Recurring OPEX (NR OPEX)">
       <bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_3</bpmn:outgoing>
     </bpmn:businessRuleTask>
