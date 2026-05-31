@@ -38,7 +38,7 @@ This repository now defines a production-foundation scope centered on:
 
 ## Reference Scenario
 
-The reference process is the **Construction Measures CAPEX / NR OPEX lifecycle** with major phases:
+The reference process is the **Construction Measures CAPEX / NR OPEX lifecycle** (NR = Non-Recurring) with major phases:
 
 1. Initiation
 2. Governance and Budget Approval

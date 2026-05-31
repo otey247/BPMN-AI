@@ -152,6 +152,7 @@
             "type": "string"
           },
           "automationPotential": {
+            "description": "Ordered categorical scale where low < medium < high.",
             "type": "string",
             "enum": [
               "low",
@@ -204,7 +205,10 @@
             "type": "string"
           },
           "riskScore": {
-            "type": "number"
+            "description": "Normalized risk score from 0 (lowest risk) to 100 (highest risk).",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
           }
         },
         "additionalProperties": false
